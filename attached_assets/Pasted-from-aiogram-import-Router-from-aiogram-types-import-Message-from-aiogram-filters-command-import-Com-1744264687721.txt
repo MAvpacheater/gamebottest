@@ -1,0 +1,85 @@
+from aiogram import Router
+from aiogram.types import Message
+from aiogram.filters.command import Command
+import random
+import asyncio
+
+from utils.helpers import load_users, save_users, parse_bet
+from handlers.general.referrals import handle_loss_referral, handle_win_referral
+from utils.tasks import update_task_progress
+
+router = Router()
+
+MULTIPLIERS = [
+    0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2,
+    2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4,
+    4.25, 4.5, 4.75, 5, 6, 7, 8, 9, 10
+]
+
+@router.message(Command(commands=["казино"]))
+async def play_casino(message: Message):
+    users = load_users()
+    user_id = str(message.from_user.id)
+
+    if user_id not in users:
+        await message.answer("Спочатку скористайся /start")
+        return
+
+    balance = users[user_id]["balance"]
+
+    try:
+        bet_str = message.text.split(" ")[1]
+        bet = parse_bet(bet_str, balance)
+    except (IndexError, ValueError):
+        await message.answer(
+            "🎰 Неправильний формат!\n\n"
+            "Спробуй так:\n"
+            "<code>/казино 100</code> або <code>/казино все</code>"
+        )
+        return
+
+    if bet > balance or bet <= 0:
+        await message.answer("❗ Недостатньо коінів або некоректна ставка!")
+        return
+
+    gif_file_id = "CgACAgUAAxkBAAIBGmf2pIUggNS2pwqbtNSr4ZWNx52TAAIRBQACZmpJVDjC_eUGWddnNgQ"
+    await message.answer_animation(gif_file_id)
+    loading_msg = await message.answer("🎰 Обертаємо слот...")
+
+    await asyncio.sleep(2)
+
+    multiplier = random.choice(MULTIPLIERS)
+    win = int(bet * multiplier)
+
+    users[user_id]["balance"] -= bet
+    users[user_id]["balance"] += win
+
+    # Завдання
+    update_task_progress(user_id, "play_3_games", 1)
+    if win - bet >= 1000:
+        update_task_progress(user_id, "win_1000", win - bet)
+
+    # Рефералка
+    if win < bet:
+        await handle_loss_referral(int(user_id), bet, message.bot)
+    elif win - bet >= 10_000:
+        await handle_win_referral(int(user_id), win - bet, message.bot)
+
+    save_users(users)
+
+    username = message.from_user.username or message.from_user.first_name
+    if win >= bet:
+        result = (
+            f"<b>{username}</b>\n"
+            f"🟢 Тобі випало <b>x{multiplier}</b>!\n"
+            f"🎉 Твій виграш: <b>{win} mCoin</b>!"
+        )
+    else:
+        result = (
+            f"<b>{username}</b>\n"
+            f"🔴 Тобі випало <b>x{multiplier}</b>\n"
+            f"😢 Ти програв <b>{bet - win} mCoin</b>"
+        )
+
+    result += f"\n\n💰 Баланс: <b>{users[user_id]['balance']} mCoin</b>"
+    await loading_msg.edit_text(result)

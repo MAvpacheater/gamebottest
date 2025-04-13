@@ -1,0 +1,14 @@
+{
+    "#newbot": {
+        "reward": 1000,
+        "uses_left": 98
+    },
+    "#newadmin": {
+        "reward": 5000,
+        "uses_left": 100
+    },
+    "#newgame": {
+        "reward": 2000,
+        "uses_left": 98
+    }
+}

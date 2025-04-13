@@ -1,0 +1,43 @@
+{
+  "balance": 1700,
+  "promo_used": 0,
+  "games_played": 0,
+  "games_won": 0,
+  "games_lost": 0,
+  "used_promocodes": [],
+  "games": {
+    "казино": 0,
+    "кубики": 0,
+    "міни": 0,
+    "рулетка": 0,
+    "вг": 0,
+    "краш": 0
+  },
+  "username": "Yarkopro",
+  "referrals": 0,
+  "first_name": null,
+  "last_name": null,
+  "received_transactions": [
+    {
+      "from": 5081289753,
+      "from_username": "Privatefanat",
+      "amount": 100
+    },
+    {
+      "from_id": 5081289753,
+      "from_username": "Privatefanat",
+      "amount": 100
+    },
+    {
+      "from_id": 5081289753,
+      "from_username": "Privatefanat",
+      "amount": 100
+    },
+    {
+      "from_id": 5081289753,
+      "from_username": "Privatefanat",
+      "amount": 100
+    }
+  ],
+  "sent_transactions": []
+}

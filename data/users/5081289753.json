@@ -1,0 +1,74 @@
+{
+  "balance": 8526,
+  "games": {
+    "міни": 4,
+    "рулетка": 1,
+    "кубики": 1
+  },
+  "wins": 25,
+  "losses": 46,
+  "used_promocodes": [
+    "#newbot"
+  ],
+  "games_stat": {
+    "баскетбол": 4,
+    "казино": 8,
+    "кубики": 8,
+    "рулетка": 5,
+    "вг": 4,
+    "міни": 32,
+    "краш": 10
+  },
+  "promo_used": 0,
+  "games_played": 6,
+  "games_won": 1,
+  "games_lost": 3,
+  "username": "privatefanat",
+  "referrals": 0,
+  "last_hourly_bonus": "2025-04-12T18:39:15.314929",
+  "last_daily_bonus": "2025-04-12T18:39:16.324101",
+  "last_weekly_bonus": "2025-04-11T17:52:06.888011",
+  "first_name": null,
+  "last_name": null,
+  "created_checks": [
+    {
+      "code": "XMXRUHAD",
+      "amount": 100,
+      "claimed": false
+    },
+    {
+      "code": "6L00EMPM",
+      "amount": 100,
+      "claimed": false,
+      "claimed_by": null
+    }
+  ],
+  "sent_transactions": [
+    {
+      "to": 7270686046,
+      "to_username": "yarkopro",
+      "amount": 100
+    },
+    {
+      "to_id": 7270686046,
+      "to_username": "yarkopro",
+      "amount": 100
+    },
+    {
+      "to_id": 7270686046,
+      "to_username": "yarkopro",
+      "amount": 100
+    },
+    {
+      "to_id": 7270686046,
+      "to_username": "yarkopro",
+      "amount": 100
+    },
+    {
+      "to_id": 6683900620,
+      "to_username": "levhnat",
+      "amount": 100
+    }
+  ],
+  "received_transactions": []
+}
